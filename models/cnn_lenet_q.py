@@ -5,6 +5,7 @@ import torch.nn as nn
 class CNNLeNet_q(nn.Module):
     def __init__(self, num_classes=1, scale=None, zero_point=None):
         super(CNNLeNet_q, self).__init__()
+        self.num_classes = num_classes
 
         self.scale = scale
         self.zero_point = zero_point

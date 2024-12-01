@@ -11,8 +11,12 @@ def plot_frames(frames):
 
 
 def plot_learning_curves(
-        num_epochs, train_losses, train_accuracies, valid_losses, valid_accuracies,
-        test_losses, test_accuracies, epoch_times, learning_rates, saved_epochs, stopped_at_epoch=None
+        num_epochs, train_losses, train_accuracies,
+        valid_losses, valid_accuracies,
+        test_losses, test_accuracies,
+        train_times,
+        learning_rates, saved_epochs, stopped_at_epoch=None,
+        save_path=None
 ):
     """
     Plot the training, validation, and test metrics along with learning rate and inference times.
@@ -25,12 +29,13 @@ def plot_learning_curves(
     - valid_accuracies: List of validation accuracies for each epoch.
     - test_losses: List of test losses for each epoch.
     - test_accuracies: List of test accuracies for each epoch.
-    - epoch_times: List of training times for each epoch.
+    - train_times: List of training times for each epoch.
     - valid_inference_times: List of validation inference times for each epoch.
     - test_inference_times: List of test inference times for each epoch.
     - learning_rates: List of learning rates for each epoch.
     - saved_epochs: List of epochs where the model was saved.
     - stopped_at_epoch: The epoch at which training stopped early (optional).
+    - save_path: File path to save the resulting plot (optional).
     """
     # Determine the range of epochs, considering early stopping
     if stopped_at_epoch:
@@ -46,14 +51,14 @@ def plot_learning_curves(
     valid_accuracies = valid_accuracies[:max_len]
     test_losses = test_losses[:max_len]
     test_accuracies = test_accuracies[:max_len]
-    epoch_times = epoch_times[:max_len]
+    epoch_times = train_times[:max_len]
     learning_rates = learning_rates[:max_len]
 
     # Plotting
-    plt.figure(figsize=(18, 20))
+    plt.figure(figsize=(24, 16))
 
     # Plot training, validation, and test loss
-    plt.subplot(4, 2, 1)
+    plt.subplot(2, 2, 1)
     plt.plot(epochs, train_losses, '-o', label='Train Loss')
     plt.plot(epochs, valid_losses, '-o', label='Valid Loss')
     plt.plot(epochs, test_losses, '-o', label='Test Loss')
@@ -67,7 +72,7 @@ def plot_learning_curves(
     plt.legend()
 
     # Plot training, validation, and test accuracy
-    plt.subplot(4, 2, 2)
+    plt.subplot(2, 2, 2)
     plt.plot(epochs, train_accuracies, '-o', label='Train Accuracy')
     plt.plot(epochs, valid_accuracies, '-o', label='Valid Accuracy')
     plt.plot(epochs, test_accuracies, '-o', label='Test Accuracy')
@@ -81,7 +86,7 @@ def plot_learning_curves(
     plt.legend()
 
     # Plot training times
-    plt.subplot(4, 2, 3)
+    plt.subplot(2, 2, 3)
     plt.plot(epochs, epoch_times, '-o', label='Training Time')
     plt.title('Training Time')
     plt.xlabel('Epoch')
@@ -89,7 +94,7 @@ def plot_learning_curves(
     plt.legend()
 
     # Plot learning rate schedule
-    plt.subplot(4, 2, 4)
+    plt.subplot(2, 2, 4)
     plt.plot(epochs, learning_rates, '-o', label='Learning Rate')
     plt.title('Learning Rate Schedule')
     plt.xlabel('Epoch')
@@ -97,4 +102,10 @@ def plot_learning_curves(
     plt.legend()
 
     plt.tight_layout()
+
+    # Save the plot if save_path is provided
+    if save_path:
+        plt.savefig(save_path)
+        print(f"Learning curves plot saved to [{save_path}].")
+
     plt.show()

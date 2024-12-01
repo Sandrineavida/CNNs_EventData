@@ -1,0 +1,105 @@
+Experiment: exp003
+Checkpoint path: experiments/exp003/checkpoint.pth
+
+######################### Model architecture #########################
+CNNLeNet(
+  (conv1): Conv2d(2, 6, kernel_size=(5, 5), stride=(1, 1), bias=False)
+  (relu1): ReLU()
+  (pool1): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv2): Conv2d(6, 16, kernel_size=(5, 5), stride=(1, 1), bias=False)
+  (relu2): ReLU()
+  (pool2): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv3): Conv2d(16, 120, kernel_size=(5, 5), stride=(1, 1), bias=False)
+  (relu3): ReLU()
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc1): Linear(in_features=120, out_features=84, bias=False)
+  (relu4): ReLU()
+  (fc2): Linear(in_features=84, out_features=1, bias=False)
+)
+Total number of paramters in the model: 60864
+
+################### Model successfully initialised ###################
+
+######### Setting up training components #########
+Number of classes: 2
+Model quantised: False
+Device: cpu
+Number of epochs: 2
+Criteria: BCEWithLogitsLoss()
+Optimizer: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+Scheduler: <torch.optim.lr_scheduler.ReduceLROnPlateau object at 0x0000021367CAE2F0>
+Patience: 7
+
+######### Training components set up successfully #########
+
+############################## Data loading ##############################
+Train set path: data/ncars/ave_32x32_DATASETS/plain/train_n_cars_dataset_poolingave_1framepereventset_plain.pth
+Valid set path: data/ncars/ave_32x32_DATASETS/plain/valid_n_cars_dataset_poolingave_1framepereventset_plain.pth
+Test set path: data/ncars/ave_32x32_DATASETS/plain/test_n_cars_dataset_poolingave_1framepereventset_plain.pth
+Total number of samples in train_loader: 11566
+Total number of samples in valid_loader: 3856
+Total number of samples in test_loader: 8607
+
+######################### Data loaded successfully #########################
+No checkpoint found at experiments/exp003/checkpoint.pth. Starting training from scratch.
+
+############### Training started ###############
+Model saved at epoch 1 with validation loss 0.4441.
+Epoch 1/2, Train Loss: 0.5905, Train Acc: 70.08%, Valid Loss: 0.4441, Valid Acc: 80.94%, Test Loss: 0.6773, Test Acc: 65.97%, Train Time: 6.11s
+Model saved at epoch 2 with validation loss 0.3992.
+Epoch 2/2, Train Loss: 0.4349, Train Acc: 79.44%, Valid Loss: 0.3992, Valid Acc: 80.63%, Test Loss: 0.5471, Test Acc: 69.42%, Train Time: 6.07s
+Loaded the best model state based on validation loss.
+
+        ############### Training completed in 12.18s. ###############
+        Average time per epoch: 6.09s.
+        Trained for 2/2 epochs.
+        ##############################################################
+        
+
+######### [Inference time] - Testing model on data/ncars/ave_32x32_DATASETS/plain/test_n_cars_dataset_poolingave_1framepereventset_plain.pth for 5 iterations #########
+
+### Testing - Iteration 1/5 ###
+
+
+Iteration 1 completed: Total examples: 8607, Accuracy: 81.49%
+Inference time for iteration 1: 0 min 46.46 sec
+
+### Testing - Iteration 2/5 ###
+
+
+Iteration 2 completed: Total examples: 8607, Accuracy: 80.47%
+Inference time for iteration 2: 0 min 49.29 sec
+
+### Testing - Iteration 3/5 ###
+
+
+Iteration 3 completed: Total examples: 8607, Accuracy: 80.47%
+Inference time for iteration 3: 0 min 50.01 sec
+
+### Testing - Iteration 4/5 ###
+
+
+Iteration 4 completed: Total examples: 8607, Accuracy: 80.47%
+Inference time for iteration 4: 0 min 50.39 sec
+
+### Testing - Iteration 5/5 ###
+
+
+Iteration 5 completed: Total examples: 8607, Accuracy: 80.47%
+Inference time for iteration 5: 0 min 49.85 sec
+
+Average Inference time over 5 iterations: 0 min 49.20 sec
+
+######### [Inference time] - Testing completed #########

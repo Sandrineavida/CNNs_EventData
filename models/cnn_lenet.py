@@ -5,6 +5,7 @@ import torch.quantization as quantization
 class CNNLeNet(nn.Module):
     def __init__(self, num_classes = 1, quantised = False):
         super(CNNLeNet, self).__init__()
+        self.num_classes = num_classes
 
         self.quantised = quantised
         self.quant = quantization.QuantStub() if quantised else None
