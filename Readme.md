@@ -37,7 +37,9 @@
 │
 ├── `models/`              # Architecture of the models
 │   ├── `cnn_lenet.py`
-│   └── `cnn_lenet_q.py`
+│   ├── `cnn_lenet_q.py`
+│   ├── `separable_convolution.py`
+│   └── `separable_convolution_q.py`
 │
 ├── `train/`               # Training scripts
 │   ├── `test.py`
@@ -52,7 +54,8 @@
 │   ├── `metrics.py`        # Evaluation metrics
 │   ├── `setup.py`          # Set up the training process
 │   ├── `config_parser.py`  # Parse configuration files
-│   └── `visualisation.py`  # Visualise one frame / learning curves
+│   ├── `visualisation.py`  # Visualise one frame / learning curves
+│   └── `model_load_helper.py`  # Help to load models
 │
 ├── `main.py`
 │
