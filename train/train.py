@@ -58,8 +58,6 @@ def train_model_sheduled(
     train_times = []
     learning_rates = []
 
-    average_train_time = 0
-    total_train_time = 0
 
     # list to record saved epochs
     saved_epochs = []

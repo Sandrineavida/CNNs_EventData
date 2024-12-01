@@ -2,13 +2,12 @@ import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 import os
 from utils.log import Logger
-
 from utils.checkpoint import load_checkpoint
 from utils.checkpoint import get_new_experiment_path
-# 如果用户没有指定路径，就每次运行时候都在experiments文件夹下自动创建一个新的文件夹，用exp001, exp002, exp003等等
 
-checkpoint_path = None  # or specify a path if needed
-# checkpoint_path = 'experiments/exp007/checkpoint.pth' # 如果是训练量化模型的话，需要新建checkpoint文件
+
+checkpoint_path = None  # or specify a path
+# checkpoint_path = 'experiments/exp007/checkpoint.pth' # Note: if you are training a quantised model, you need to create a new checkpoint file
 if checkpoint_path is None:
     checkpoint_path = get_new_experiment_path()
 print(f"Checkpoint path: {checkpoint_path}")
@@ -27,12 +26,12 @@ else:
 # Example of setting permissions (if needed)
 # os.chmod(checkpoint_path, 0o666)  # Read and write permissions for everyone
 
-# 获取checkpoint_path的文件夹路径中的expXXX
-exp = checkpoint_path.split('/')[-2] # -2表示倒数第二个元素
+# Get the experiment name from the folder path of the checkpoint_path (expXXX)
+exp = checkpoint_path.split('/')[-2] # -2 means the second last element
 print(f"Experiment: {exp}")
 
 # # Initialise the logger
-logger = Logger(log_exp=exp, log_dir="experiments", log_file="log.txt")
+logger = Logger(log_exp=exp, log_dir="experiments", log_file="train_log.txt")
 logger.info("========================================================================================================")
 logger.info(f"Experiment: {exp}")
 logger.info(f"Checkpoint path: {checkpoint_path}")
@@ -40,11 +39,12 @@ logger.info(f"Checkpoint path: {checkpoint_path}")
 
 logger.info("\n######################### Model architecture #########################")
 from models.cnn_lenet import CNNLeNet
-model = CNNLeNet(num_classes=1, quantised=True)
+model = CNNLeNet(num_classes=1, quantised=False)
 logger.info(model)
 # Calculate the number of parameters
 total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
 logger.info(f"Total number of paramters in the model: {total_params}")
+logger.info(f"Quantised model: {model.quantised}")
 logger.info("\n################### Model successfully initialised ###################")
 
 
@@ -128,20 +128,20 @@ plot_learning_curves(
 import torch
 import torch.quantization as quantization
 model.eval()
-if model.quantised:
-    quantization.convert(model, inplace=True)  # 转换为量化模型
 
 if not model.quantised:
     model_path = os.path.join(exp_path, "model.pth")
     torch.save(model.state_dict(), model_path)
     logger.info(f"============================== Model saved to: {model_path} ==============================")
 else:
-    model_path = os.path.join(exp_path, "unquantised_model.pth")
+    model_path = os.path.join(exp_path, "quantised_model.pth")
+    if model.quantised:
+        quantization.convert(model, inplace=True)  # TRUELY convert the model to a quantised model
     torch.save(model.state_dict(), model_path)
     logger.info(f"========================================================================================================")
-    logger.info(f"\n!---------------------------- Unquantised model saved to: {model_path} ----------------------------!")
-    logger.info(f"scale={model.quant.scale.item()},"
-                f"\nzero_point={model.quant.zero_point.item()}")
+    logger.info(f"\n!---------------------------- Quantised model saved to: {model_path} ----------------------------!")
+    logger.info(f"scale={model.quant.scale.item()}")
+    logger.info(f"zero_point={model.quant.zero_point.item()}")
     logger.info("!-------------------------------------------------------------------------------------------------------------------------!")
     logger.info("\nModel quantised:")
     logger.info(model)

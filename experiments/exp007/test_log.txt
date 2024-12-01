@@ -1,0 +1,37 @@
+Model is quantised, model structure: 
+CNNLeNet_q(
+  (quant): Quantize(scale=tensor([0.3464]), zero_point=tensor([3]), dtype=torch.quint8)
+  (dequant): DeQuantize()
+  (conv1): QuantizedConv2d(2, 6, kernel_size=(5, 5), stride=(1, 1), scale=0.25199416279792786, zero_point=56, bias=False)
+  (relu1): ReLU()
+  (pool1): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv2): QuantizedConv2d(6, 16, kernel_size=(5, 5), stride=(1, 1), scale=0.1593637764453888, zero_point=69, bias=False)
+  (relu2): ReLU()
+  (pool2): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv3): QuantizedConv2d(16, 120, kernel_size=(5, 5), stride=(1, 1), scale=0.14991100132465363, zero_point=61, bias=False)
+  (relu3): ReLU()
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc1): QuantizedLinear(in_features=120, out_features=84, scale=0.2159288376569748, zero_point=57, qscheme=torch.per_channel_affine)
+  (relu4): ReLU()
+  (fc2): QuantizedLinear(in_features=84, out_features=1, scale=0.41176101565361023, zero_point=81, qscheme=torch.per_channel_affine)
+)
+
+############################## Data loading ##############################
+Test set path: data/ncars/ave_32x32_DATASETS/plain/test_n_cars_dataset_poolingave_1framepereventset_plain.pth
+Total number of samples in test_loader: 8607
+
+######################### Data loaded successfully #########################
+######################################### Classification report #########################################
+              precision    recall  f1-score   support
+
+         0.0     0.6423    0.3966    0.4904      4211
+         1.0     0.5770    0.7884    0.6663      4396
+
+    accuracy                         0.5967      8607
+   macro avg     0.6097    0.5925    0.5784      8607
+weighted avg     0.6089    0.5967    0.5803      8607
+
+##########################################################################################################
+############################################# Accuracy score #############################################
+0.5967235970721506
+##########################################################################################################
