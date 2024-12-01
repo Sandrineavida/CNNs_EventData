@@ -1,0 +1,114 @@
+========================================================================================================
+Experiment: exp011
+Checkpoint path: experiments/exp011/checkpoint.pth
+
+######################### Model architecture #########################
+MobileNet(
+  (conv1): Sequential(
+    (0): Conv2d(2, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+    (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+  )
+  (conv2): DepthwiseSeparableConv(
+    (depthwise): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+    (pointwise): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  )
+  (conv3): DepthwiseSeparableConv(
+    (depthwise): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+    (pointwise): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  )
+  (conv4): DepthwiseSeparableConv(
+    (depthwise): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+    (pointwise): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  )
+  (conv5): DepthwiseSeparableConv(
+    (depthwise): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=128, bias=False)
+    (pointwise): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  )
+  (conv6): DepthwiseSeparableConv(
+    (depthwise): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256, bias=False)
+    (pointwise): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  )
+  (conv7): DepthwiseSeparableConv(
+    (depthwise): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=256, bias=False)
+    (pointwise): Conv2d(256, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  )
+  (conv8): Sequential(
+    (0): DepthwiseSeparableConv(
+      (depthwise): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+      (pointwise): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    )
+    (1): DepthwiseSeparableConv(
+      (depthwise): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+      (pointwise): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    )
+    (2): DepthwiseSeparableConv(
+      (depthwise): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+      (pointwise): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    )
+    (3): DepthwiseSeparableConv(
+      (depthwise): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+      (pointwise): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    )
+    (4): DepthwiseSeparableConv(
+      (depthwise): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512, bias=False)
+      (pointwise): Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    )
+  )
+  (conv9): DepthwiseSeparableConv(
+    (depthwise): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=512, bias=False)
+    (pointwise): Conv2d(512, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  )
+  (conv10): DepthwiseSeparableConv(
+    (depthwise): Conv2d(1024, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1024, bias=False)
+    (pointwise): Conv2d(1024, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  )
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc): Linear(in_features=1024, out_features=1, bias=True)
+)
+Total number of paramters in the model: 3185889
+Quantised model: False
+
+################### Model successfully initialised ###################
+
+################## Setting up training components ##################
+Number of classes: 2
+Model quantised: False
+Device: (CPU)
+Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+Number of epochs: 2
+Criteria: BCEWithLogitsLoss()
+Optimizer: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+Scheduler: <torch.optim.lr_scheduler.ReduceLROnPlateau object at 0x00000172C479FD90>
+Patience: 7
+
+################## Training components set up successfully ##################
+
+############################## Data loading ##############################
+Train set path: data/ncars/ave_32x32_DATASETS/plain/train_n_cars_dataset_poolingave_1framepereventset_plain.pth
+Valid set path: data/ncars/ave_32x32_DATASETS/plain/valid_n_cars_dataset_poolingave_1framepereventset_plain.pth
+Test set path: data/ncars/ave_32x32_DATASETS/plain/test_n_cars_dataset_poolingave_1framepereventset_plain.pth
+Total number of samples in train_loader: 11566
+Total number of samples in valid_loader: 3856
+Total number of samples in test_loader: 8607
+
+######################### Data loaded successfully #########################
+
+################################## checkpoint info ##################################
+No checkpoint found at experiments/exp011/checkpoint.pth. Starting training from scratch.
+
+#####################################################################################
+
+############################## Training started ##############################

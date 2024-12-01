@@ -62,3 +62,58 @@ class SeparableConv_LeNet_q(nn.Module):
         x = self.dequant(x)
 
         return x
+
+
+class MobileNet_q(nn.Module):
+    def __init__(self, num_classes=1, scale=None, zero_point=None):
+        super(MobileNet_q, self).__init__()
+        self.num_classes = num_classes
+
+        self.scale = scale
+        self.zero_point = zero_point
+
+        self.quant = nn.quantized.Quantize(scale=self.scale, zero_point=self.zero_point, dtype=torch.quint8)
+        self.dequant = nn.quantized.DeQuantize()
+
+        self.conv1 = nn.Sequential(
+            nn.quantized.Conv2d(2, 32, kernel_size=3, stride=2, padding=1, bias=False),
+            nn.BatchNorm2d(32),
+            nn.ReLU(inplace=True)
+        )
+
+        self.conv2 = DepthwiseSeparableConv_q(32, 64, stride=1)
+        self.conv3 = DepthwiseSeparableConv_q(64, 128, stride=2)
+        self.conv4 = DepthwiseSeparableConv_q(128, 128, stride=1)
+        self.conv5 = DepthwiseSeparableConv_q(128, 256, stride=2)
+        self.conv6 = DepthwiseSeparableConv_q(256, 256, stride=1)
+        self.conv7 = DepthwiseSeparableConv_q(256, 512, stride=2)
+
+        self.conv8 = nn.Sequential(
+            DepthwiseSeparableConv_q(512, 512, stride=1),
+            DepthwiseSeparableConv_q(512, 512, stride=1),
+            DepthwiseSeparableConv_q(512, 512, stride=1),
+            DepthwiseSeparableConv_q(512, 512, stride=1),
+            DepthwiseSeparableConv_q(512, 512, stride=1)
+        )
+
+        self.conv9 = DepthwiseSeparableConv_q(512, 1024, stride=2)
+        self.conv10 = DepthwiseSeparableConv_q(1024, 1024, stride=1)
+
+        self.avgpool = nn.AdaptiveAvgPool2d(1)
+        self.fc = nn.quantized.Linear(1024, num_classes)
+
+    def forward(self, x):
+        x = self.conv1(x)
+        x = self.conv2(x)
+        x = self.conv3(x)
+        x = self.conv4(x)
+        x = self.conv5(x)
+        x = self.conv6(x)
+        x = self.conv7(x)
+        x = self.conv8(x)
+        x = self.conv9(x)
+        x = self.conv10(x)
+        x = self.avgpool(x)
+        x = x.view(x.size(0), -1)
+        x = self.fc(x)
+        return x

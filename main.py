@@ -39,9 +39,11 @@ logger.info(f"Checkpoint path: {checkpoint_path}")
 
 logger.info("\n######################### Model architecture #########################")
 from models.cnn_lenet import CNNLeNet
-from models.separable_convolution_lenet import SeparableConv_LeNet
+from models.separable_convolution import SeparableConv_LeNet
+from models.separable_convolution import MobileNet
 # model = CNNLeNet(num_classes=1, quantised=False)
-model = SeparableConv_LeNet(num_classes=1, quantised=True)
+# model = SeparableConv_LeNet(num_classes=1, quantised=True)
+model = MobileNet(num_classes=1, quantised=False)
 
 logger.info(model)
 # Calculate the number of parameters

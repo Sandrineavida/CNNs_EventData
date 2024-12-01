@@ -1,8 +1,8 @@
 import torch
 from models.cnn_lenet_q import CNNLeNet_q
 from models.cnn_lenet import CNNLeNet
-from models.separable_convolution_lenet_q import SeparableConv_LeNet_q
-from models.separable_convolution_lenet import SeparableConv_LeNet
+from models.separable_convolution_q import SeparableConv_LeNet_q, MobileNet_q
+from models.separable_convolution import SeparableConv_LeNet, MobileNet
 from utils.log import Logger
 from utils.model_load_helper import load_clean_state_dict
 import warnings
@@ -67,6 +67,8 @@ if quantised:
         model = CNNLeNet_q(num_classes=num_classes, scale=scale, zero_point=zero_point)
     elif model_class == "SeparableConv_LeNet":
         model = SeparableConv_LeNet_q(num_classes=num_classes, scale=scale, zero_point=zero_point)
+    elif model_class == "MobileNet":
+        model = MobileNet_q(num_classes=num_classes, scale=scale, zero_point=zero_point)
 
     dict_path = path_dir + exp + "quantised_model.pth"
     model.load_state_dict(torch.load(dict_path))
@@ -79,6 +81,9 @@ else:
         model = CNNLeNet(num_classes=num_classes, quantised=False)
     elif model_class == "SeparableConv_LeNet":
         model = SeparableConv_LeNet(num_classes=num_classes, quantised=False)
+    elif model_class == "MobileNet":
+        model = MobileNet(num_classes=num_classes, quantised=False)
+
     dict_path = path_dir + exp + "model.pth"
     state_dict = torch.load(dict_path)
     clean_state_dict = load_clean_state_dict(model, state_dict)  # clean the extra (futile) keys

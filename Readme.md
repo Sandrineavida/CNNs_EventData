@@ -126,4 +126,4 @@
 - ✅ Simplify the `train_model_scheduled` function in `train.train`.  
 - ❓ Use `TensorBoard` to visualise the training process?  
 - ✅ Complete the migration of `Separable Conv-LeNet`.  
-- ❌ Complete the migration of `Separable Conv-MobileNet`.
+- ❓ Complete the migration of `Separable Conv-MobileNet`.

@@ -62,3 +62,62 @@ class SeparableConv_LeNet(nn.Module):
             x = self.dequant(x)
 
         return x
+
+
+class MobileNet(nn.Module):
+    def __init__(self, num_classes=1, quantised=False):
+        super(MobileNet, self).__init__()
+        self.num_classes = num_classes
+
+        self.quantised = quantised
+        self.quant = torch.quantization.QuantStub() if quantised else None
+        self.dequant = torch.quantization.DeQuantStub() if quantised else None
+
+        self.conv1 = nn.Sequential(
+            nn.Conv2d(2, 32, kernel_size=3, stride=2, padding=1, bias=False),
+            nn.BatchNorm2d(32),
+            nn.ReLU(inplace=True)
+        )
+
+        self.conv2 = DepthwiseSeparableConv(32, 64, kernel_size=3, padding=1, stride=1)
+        self.conv3 = DepthwiseSeparableConv(64, 128, kernel_size=3, padding=1, stride=2)
+        self.conv4 = DepthwiseSeparableConv(128, 128, kernel_size=3, padding=1, stride=1)
+        self.conv5 = DepthwiseSeparableConv(128, 256, kernel_size=3, padding=1, stride=2)
+        self.conv6 = DepthwiseSeparableConv(256, 256, kernel_size=3, padding=1, stride=1)
+        self.conv7 = DepthwiseSeparableConv(256, 512, kernel_size=3, padding=1, stride=2)
+
+        self.conv8 = nn.Sequential(
+            DepthwiseSeparableConv(512, 512, kernel_size=3, padding=1, stride=1),
+            DepthwiseSeparableConv(512, 512, kernel_size=3, padding=1, stride=1),
+            DepthwiseSeparableConv(512, 512, kernel_size=3, padding=1, stride=1),
+            DepthwiseSeparableConv(512, 512, kernel_size=3, padding=1, stride=1),
+            DepthwiseSeparableConv(512, 512, kernel_size=3, padding=1, stride=1)
+        )
+
+        self.conv9 = DepthwiseSeparableConv(512, 1024, kernel_size=3, padding=1, stride=2)
+        self.conv10 = DepthwiseSeparableConv(1024, 1024, kernel_size=3, padding=1, stride=1)
+
+        self.avgpool = nn.AdaptiveAvgPool2d(1)
+        self.fc = nn.Linear(1024, num_classes)
+
+    def forward(self, x):
+        if self.quantised:
+            x = self.quant(x)
+
+        x = self.conv1(x)
+        x = self.conv2(x)
+        x = self.conv3(x)
+        x = self.conv4(x)
+        x = self.conv5(x)
+        x = self.conv6(x)
+        x = self.conv7(x)
+        x = self.conv8(x)
+        x = self.conv9(x)
+        x = self.conv10(x)
+        x = self.avgpool(x)
+        x = x.view(x.size(0), -1)
+        x = self.fc(x)
+
+        if self.quantised:
+            x = self.dequant(x)
+        return x
