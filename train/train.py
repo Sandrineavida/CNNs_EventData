@@ -43,6 +43,10 @@ def train_model_sheduled(
     num_epochs=10, patience=7, checkpoint_path='checkpoint.pth', num_classes=1, device="cpu", logger=None
 ):
     logger.info("\n############################## Training started ##############################")
+    if model.quantised:
+        model.qconfig = torch.quantization.get_default_qconfig('fbgemm')
+        torch.quantization.prepare(model, inplace=True)
+
     model.train()
 
     train_losses = []

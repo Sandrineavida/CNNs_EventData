@@ -16,8 +16,9 @@
 ```plaintext
 ├── `config/`
 │   └── `train/`
-│       ├── `train_config_c2.cfg`
-│       └── `train_config_c10.cfg`
+│       ├── `train_config_c2.cfg`  # Configuration file for training on N-CARS dataset  
+│       └── `train_config_c10.cfg` # Configuration file for training on N-MNIST dataset
+│
 ├── `data/`
 │   └── `ncars/`
 │       └── `ave_32x32_DATASETS/`
@@ -25,20 +26,37 @@
 │               ├── `train_n_cars_dataset_poolingave_1framepereventset_plain.pth`
 │               ├── `valid_n_cars_dataset_poolingave_1framepereventset_plain.pth`
 │               └── `test_n_cars_dataset_poolingave_1framepereventset_plain.pth`
-├── `experiments/`
-│   └── `checkpoint.pth`
-├── `models/`
+│
+├── `experiments/`         # Experiment results
+│   ├── `exp001/`
+│   │   ├── `checkpoint.pth`
+│   │   ├── `log.txt`
+│   │   ├── `confusion_matrix.png`
+│   │   └── `learning_curves.png`
+│   └── `exp00x/`
+│
+├── `models/`              # Architecture of the models
 │   ├── `cnn_lenet.py`
 │   └── `cnn_lenet_q.py`
 │
-├── `train/`
-│   ├── `setup.py`
+├── `train/`               # Training scripts
+│   ├── `test.py`
+│   ├── `validate.py`
 │   └── `train.py`
+│
 ├── `utils/`
-│   ├── `checkpoint.py`
-│   ├── `config_parser.py`
-│   └── `visualisation.py`
+│   ├── `checkpoint.py`     # Save and load model checkpoints
+│   ├── `datasets.py`       # Load datasets
+│   ├── `device_info.py`    # Get device information
+│   ├── `log.py`            # Generate and manage logs
+│   ├── `metrics.py`        # Evaluation metrics
+│   ├── `setup.py`          # Set up the training process
+│   ├── `config_parser.py`  # Parse configuration files
+│   └── `visualisation.py`  # Visualise one frame / learning curves
+│
 ├── `main.py`
+│
+├── `requirements.txt`
 └── `README.md`
 ```
 
@@ -87,8 +105,8 @@
 
 [//]: # (- 完成`Separable Conv-MobileNet`的移植)
 
-- Complete the migration of the quantization code.  
-- Complete the implementation of code for generating and managing logs:  
+- ✅ Complete the migration of the quantization code.
+- ✅ Complete the implementation of code for generating and managing logs:  
   - The `log` should primarily record information during **training**, such as `train_loss`, `training_time`, etc.  
   - Write it under the `utils` directory, and store it in `experiment/exp00?/train_log.txt`.  
   - Calculate the **total training duration** and the **average duration per epoch**.  
@@ -98,14 +116,14 @@
 
 ![img.png](img.png)  
 
-- Complete the migration of evaluation code, including:  
+- ✅ Complete the migration of evaluation code, including:  
   - Log the results in `experiment/exp00?/eval_log.txt`.  
   - Record inference time (**pass the data individually** for five runs and take the average).  
   - Generate a confusion matrix.  
   - Generate a classification report.  
 
-- Complete saving of evaluation results.  
-- Simplify the `train_model_scheduled` function in `train.train`.  
-- Use `TensorBoard` to visualise the training process?  
-- Complete the migration of `Separable Conv-LeNet`.  
-- Complete the migration of `Separable Conv-MobileNet`.
+- ✅ Complete saving of evaluation results.  
+- ✅ Simplify the `train_model_scheduled` function in `train.train`.  
+- ❓ Use `TensorBoard` to visualise the training process?  
+- ❌ Complete the migration of `Separable Conv-LeNet`.  
+- ❌ Complete the migration of `Separable Conv-MobileNet`.

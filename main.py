@@ -7,8 +7,8 @@ from utils.checkpoint import load_checkpoint
 from utils.checkpoint import get_new_experiment_path
 # 如果用户没有指定路径，就每次运行时候都在experiments文件夹下自动创建一个新的文件夹，用exp001, exp002, exp003等等
 
-# checkpoint_path = None  # or specify a path if needed
-checkpoint_path = 'experiments/exp006/checkpoint.pth'
+checkpoint_path = None  # or specify a path if needed
+# checkpoint_path = 'experiments/exp007/checkpoint.pth' # 如果是训练量化模型的话，需要新建checkpoint文件
 if checkpoint_path is None:
     checkpoint_path = get_new_experiment_path()
 print(f"Checkpoint path: {checkpoint_path}")
@@ -33,12 +33,14 @@ print(f"Experiment: {exp}")
 
 # # Initialise the logger
 logger = Logger(log_exp=exp, log_dir="experiments", log_file="log.txt")
+logger.info("========================================================================================================")
 logger.info(f"Experiment: {exp}")
 logger.info(f"Checkpoint path: {checkpoint_path}")
 
+
 logger.info("\n######################### Model architecture #########################")
 from models.cnn_lenet import CNNLeNet
-model = CNNLeNet(num_classes=1)
+model = CNNLeNet(num_classes=1, quantised=True)
 logger.info(model)
 # Calculate the number of parameters
 total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
@@ -122,6 +124,31 @@ plot_learning_curves(
     saved_epochs, stopped_at_epoch, save_path=save_lc_path
 )
 
+# Save model dict
+import torch
+import torch.quantization as quantization
+model.eval()
+if model.quantised:
+    quantization.convert(model, inplace=True)  # 转换为量化模型
+
+if not model.quantised:
+    model_path = os.path.join(exp_path, "model.pth")
+    torch.save(model.state_dict(), model_path)
+    logger.info(f"============================== Model saved to: {model_path} ==============================")
+else:
+    model_path = os.path.join(exp_path, "unquantised_model.pth")
+    torch.save(model.state_dict(), model_path)
+    logger.info(f"========================================================================================================")
+    logger.info(f"\n!---------------------------- Unquantised model saved to: {model_path} ----------------------------!")
+    logger.info(f"scale={model.quant.scale.item()},"
+                f"\nzero_point={model.quant.zero_point.item()}")
+    logger.info("!-------------------------------------------------------------------------------------------------------------------------!")
+    logger.info("\nModel quantised:")
+    logger.info(model)
+    logger.info(f"========================================================================================================")
+
+
+# Evaluate the model
 from utils.metrics import get_classification_report
 get_classification_report(test_dataloader, model, logger=logger)
 from utils.metrics import get_accuracy_score
@@ -131,6 +158,6 @@ from utils.metrics import get_confusion_matrix
 save_cm_path = os.path.join(exp_path, "confusion_matrix.png")
 get_confusion_matrix(test_dataloader, model, save_path=save_cm_path)
 
-# from utils.metrics import get_inference_time
-# average_inference_time = get_inference_time(model, test_dataset_path, num_tests=5, logger=logger)
+from utils.metrics import get_inference_time
+average_inference_time = get_inference_time(model, test_dataset_path, num_tests=5, logger=logger)
 
