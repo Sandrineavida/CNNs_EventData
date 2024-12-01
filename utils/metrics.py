@@ -92,17 +92,17 @@ def get_classification_report(test_dataloader, model, logger=None):
     # Convert the set of numerical labels to strings
     target_names = [str(i) for i in set(all_labels)]
 
-    logger.info("######################################### Classification report #########################################")
+    logger.info("\n######################################### Classification report #########################################")
     logger.info(classification_report(all_labels, all_preds, target_names=target_names, digits=4))
-    logger.info("##########################################################################################################")
+    logger.info("\n##########################################################################################################")
 
 
 def get_accuracy_score(test_dataloader, model, logger=None):
     all_preds, all_labels = get_preds_and_labels(model, test_dataloader)
 
-    logger.info("############################################# Accuracy score #############################################")
+    logger.info("\n############################################# Accuracy score #############################################")
     logger.info(accuracy_score(all_labels, all_preds))
-    logger.info("##########################################################################################################")
+    logger.info("\n##########################################################################################################")
 
 
 def get_confusion_matrix(test_dataloader, model, save_path=None):

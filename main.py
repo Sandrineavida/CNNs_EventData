@@ -39,7 +39,10 @@ logger.info(f"Checkpoint path: {checkpoint_path}")
 
 logger.info("\n######################### Model architecture #########################")
 from models.cnn_lenet import CNNLeNet
-model = CNNLeNet(num_classes=1, quantised=False)
+from models.separable_convolution_lenet import SeparableConv_LeNet
+# model = CNNLeNet(num_classes=1, quantised=False)
+model = SeparableConv_LeNet(num_classes=1, quantised=True)
+
 logger.info(model)
 # Calculate the number of parameters
 total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)

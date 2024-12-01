@@ -19,9 +19,9 @@ class DepthwiseSeparableConv(nn.Module):
         return x
 
 # Define the Separable Convolutional Network based on LeNet
-class SeparableConvNet(nn.Module):
+class SeparableConv_LeNet(nn.Module):
     def __init__(self, num_classes=1, quantised=False):
-        super(SeparableConvNet, self).__init__()
+        super(SeparableConv_LeNet, self).__init__()
         self.num_classes = num_classes
 
         self.quantised = quantised
@@ -34,7 +34,7 @@ class SeparableConvNet(nn.Module):
         self.pool1 = nn.AvgPool2d(2, 2)
         self.conv2 = DepthwiseSeparableConv(in_channels=6, out_channels=16, kernel_size=5, stride=1, padding=0, bias=False)
         self.relu2 = nn.ReLU()
-        self.pool1 = nn.AvgPool2d(2, 2)
+        self.pool2 = nn.AvgPool2d(2, 2)
         self.conv3 = DepthwiseSeparableConv(in_channels=16, out_channels=120, kernel_size=5, stride=1, padding=0, bias=False)
         self.relu3 = nn.ReLU()
 
