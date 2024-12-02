@@ -1,0 +1,108 @@
+
+-------------------- Extract model info from the train_log.txt -------------------
+Class of the model: SeparableConv_LeNet
+Quantised model: False
+Number of classes: 10
+(num_classes = 10)
+Test set path: data/nmnist/Plain_Binary/Plain-Binary_1FramePerEventSet_test_dataset.pth
+
+-------------------- Model info extracted successfully -------------------
+
+------------------- Model initialisation and loading -------------------
+Model was not quantised, model structure: 
+SeparableConv_LeNet(
+  (conv1): DepthwiseSeparableConv(
+    (depthwise): Conv2d(2, 2, kernel_size=(5, 5), stride=(1, 1), groups=2, bias=False)
+    (pointwise): Conv2d(2, 6, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  )
+  (relu1): ReLU()
+  (pool1): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv2): DepthwiseSeparableConv(
+    (depthwise): Conv2d(6, 6, kernel_size=(5, 5), stride=(1, 1), groups=6, bias=False)
+    (pointwise): Conv2d(6, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  )
+  (relu2): ReLU()
+  (pool2): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv3): DepthwiseSeparableConv(
+    (depthwise): Conv2d(16, 16, kernel_size=(5, 5), stride=(1, 1), groups=16, bias=False)
+    (pointwise): Conv2d(16, 120, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  )
+  (relu3): ReLU()
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc1): Linear(in_features=120, out_features=84, bias=False)
+  (relu4): ReLU()
+  (fc2): Linear(in_features=84, out_features=10, bias=False)
+)
+Load model from: experiments/exp020/model.pth
+
+------------------- Model successfully initialised ------------------- 
+
+------------------------------- Test Data loading -------------------------------
+Test set path: data/nmnist/Plain_Binary/Plain-Binary_1FramePerEventSet_test_dataset.pth
+Total number of samples in test_loader: 10000
+
+---------------------------- Test Data loaded successfully ----------------------------
+
+######################################### Classification report #########################################
+              precision    recall  f1-score   support
+
+           0     0.9709    0.9857    0.9782       980
+           1     0.9843    0.9912    0.9877      1135
+           2     0.9731    0.9816    0.9773      1032
+           3     0.9693    0.9683    0.9688      1010
+           4     0.9726    0.9745    0.9736       982
+           5     0.9535    0.9652    0.9593       892
+           6     0.9851    0.9645    0.9747       958
+           7     0.9756    0.9718    0.9737      1028
+           8     0.9544    0.9671    0.9607       974
+           9     0.9723    0.9405    0.9562      1009
+
+    accuracy                         0.9714     10000
+   macro avg     0.9711    0.9711    0.9710     10000
+weighted avg     0.9715    0.9714    0.9714     10000
+
+
+##########################################################################################################
+
+############################################# Accuracy score #############################################
+0.9714
+
+##########################################################################################################
+
+##################### [Inference time] - Testing model for 5 iterations #####################
+
+### Testing - Iteration 1/5 ###
+
+
+Iteration 1 completed: Total examples: 10000, Accuracy: 97.14%
+Inference time for iteration 1: 0 min 8.65 sec
+
+### Testing - Iteration 2/5 ###
+
+
+Iteration 2 completed: Total examples: 10000, Accuracy: 97.14%
+Inference time for iteration 2: 0 min 8.63 sec
+
+### Testing - Iteration 3/5 ###
+
+
+Iteration 3 completed: Total examples: 10000, Accuracy: 97.14%
+Inference time for iteration 3: 0 min 8.58 sec
+
+### Testing - Iteration 4/5 ###
+
+
+Iteration 4 completed: Total examples: 10000, Accuracy: 97.14%
+Inference time for iteration 4: 0 min 8.62 sec
+
+### Testing - Iteration 5/5 ###
+
+
+Iteration 5 completed: Total examples: 10000, Accuracy: 97.14%
+Inference time for iteration 5: 0 min 8.60 sec
+
+Average Inference time over 5 iterations: 0 min 8.62 sec
+
+Average Inference time per sample: 0.86 ms
+
+##################### [Inference time] - Testing completed #####################

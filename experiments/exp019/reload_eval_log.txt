@@ -1,0 +1,112 @@
+
+-------------------- Extract model info from the train_log.txt -------------------
+Class of the model: SeparableConv_LeNet
+Quantised model: True
+Number of classes: 10
+(num_classes = 10)
+Test set path: data/nmnist/Plain/Plain_1FramePerEventSet_test_dataset.pth
+Scale: 0.09447386860847473
+Zero point: 11
+
+-------------------- Model info extracted successfully -------------------
+
+------------------- Model initialisation and loading -------------------
+Model was quantised, model structure: 
+SeparableConv_LeNet_q(
+  (quant): Quantize(scale=tensor([0.0945]), zero_point=tensor([11]), dtype=torch.quint8)
+  (dequant): DeQuantize()
+  (conv1): DepthwiseSeparableConv_q(
+    (depthwise): QuantizedConv2d(2, 2, kernel_size=(5, 5), stride=(1, 1), scale=0.37891796231269836, zero_point=92, groups=2, bias=False)
+    (pointwise): QuantizedConv2d(2, 6, kernel_size=(1, 1), stride=(1, 1), scale=0.3793109953403473, zero_point=67, bias=False)
+  )
+  (relu1): ReLU()
+  (pool1): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv2): DepthwiseSeparableConv_q(
+    (depthwise): QuantizedConv2d(6, 6, kernel_size=(5, 5), stride=(1, 1), scale=0.5062635540962219, zero_point=47, groups=6, bias=False)
+    (pointwise): QuantizedConv2d(6, 16, kernel_size=(1, 1), stride=(1, 1), scale=0.34758812189102173, zero_point=70, bias=False)
+  )
+  (relu2): ReLU()
+  (pool2): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv3): DepthwiseSeparableConv_q(
+    (depthwise): QuantizedConv2d(16, 16, kernel_size=(5, 5), stride=(1, 1), scale=0.19226127862930298, zero_point=65, groups=16, bias=False)
+    (pointwise): QuantizedConv2d(16, 120, kernel_size=(1, 1), stride=(1, 1), scale=0.1611345261335373, zero_point=72, bias=False)
+  )
+  (relu3): ReLU()
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc1): QuantizedLinear(in_features=120, out_features=84, scale=0.3387262523174286, zero_point=86, qscheme=torch.per_channel_affine)
+  (relu4): ReLU()
+  (fc2): QuantizedLinear(in_features=84, out_features=10, scale=0.7724833488464355, zero_point=82, qscheme=torch.per_channel_affine)
+)
+Load model from: experiments/exp019/quantised_model.pth
+
+------------------- Model successfully initialised ------------------- 
+
+------------------------------- Test Data loading -------------------------------
+Test set path: data/nmnist/Plain/Plain_1FramePerEventSet_test_dataset.pth
+Total number of samples in test_loader: 10000
+
+---------------------------- Test Data loaded successfully ----------------------------
+
+######################################### Classification report #########################################
+              precision    recall  f1-score   support
+
+           0     0.9789    0.9918    0.9853       980
+           1     0.9843    0.9938    0.9890      1135
+           2     0.9675    0.9806    0.9740      1032
+           3     0.9675    0.9723    0.9699      1010
+           4     0.9797    0.9817    0.9807       982
+           5     0.9641    0.9630    0.9635       892
+           6     0.9810    0.9708    0.9759       958
+           7     0.9813    0.9698    0.9755      1028
+           8     0.9598    0.9548    0.9573       974
+           9     0.9738    0.9574    0.9655      1009
+
+    accuracy                         0.9740     10000
+   macro avg     0.9738    0.9736    0.9737     10000
+weighted avg     0.9740    0.9740    0.9740     10000
+
+
+##########################################################################################################
+
+############################################# Accuracy score #############################################
+0.974
+
+##########################################################################################################
+
+##################### [Inference time] - Testing model for 5 iterations #####################
+
+### Testing - Iteration 1/5 ###
+
+
+Iteration 1 completed: Total examples: 10000, Accuracy: 97.40%
+Inference time for iteration 1: 0 min 21.28 sec
+
+### Testing - Iteration 2/5 ###
+
+
+Iteration 2 completed: Total examples: 10000, Accuracy: 97.40%
+Inference time for iteration 2: 0 min 21.19 sec
+
+### Testing - Iteration 3/5 ###
+
+
+Iteration 3 completed: Total examples: 10000, Accuracy: 97.40%
+Inference time for iteration 3: 0 min 21.21 sec
+
+### Testing - Iteration 4/5 ###
+
+
+Iteration 4 completed: Total examples: 10000, Accuracy: 97.40%
+Inference time for iteration 4: 0 min 21.85 sec
+
+### Testing - Iteration 5/5 ###
+
+
+Iteration 5 completed: Total examples: 10000, Accuracy: 97.40%
+Inference time for iteration 5: 0 min 21.47 sec
+
+Average Inference time over 5 iterations: 0 min 21.40 sec
+
+Average Inference time per sample: 2.14 ms
+
+##################### [Inference time] - Testing completed #####################

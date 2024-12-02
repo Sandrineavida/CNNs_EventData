@@ -1,0 +1,95 @@
+
+-------------------- Extract model info from the train_log.txt -------------------
+Class of the model: CNNLeNet
+Quantised model: True
+Number of classes: 2
+(num_classes = 1)
+Test set path: data/ncars/max_32x32_DATASETS/plain/test_n_cars_dataset_maxpooling_1framepereventset_plain.pth
+Scale: 1.2803839445114136
+Zero point: 1
+
+-------------------- Model info extracted successfully -------------------
+
+------------------- Model initialisation and loading -------------------
+Model was quantised, model structure: 
+CNNLeNet_q(
+  (quant): Quantize(scale=tensor([1.2804]), zero_point=tensor([1]), dtype=torch.quint8)
+  (dequant): DeQuantize()
+  (conv1): QuantizedConv2d(2, 6, kernel_size=(5, 5), stride=(1, 1), scale=1.0370802879333496, zero_point=68, bias=False)
+  (relu1): ReLU()
+  (pool1): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv2): QuantizedConv2d(6, 16, kernel_size=(5, 5), stride=(1, 1), scale=0.7497825026512146, zero_point=83, bias=False)
+  (relu2): ReLU()
+  (pool2): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv3): QuantizedConv2d(16, 120, kernel_size=(5, 5), stride=(1, 1), scale=0.41756266355514526, zero_point=90, bias=False)
+  (relu3): ReLU()
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc1): QuantizedLinear(in_features=120, out_features=84, scale=0.374576598405838, zero_point=68, qscheme=torch.per_channel_affine)
+  (relu4): ReLU()
+  (fc2): QuantizedLinear(in_features=84, out_features=1, scale=1.3398946523666382, zero_point=47, qscheme=torch.per_channel_affine)
+)
+Load model from: experiments/exp027/quantised_model.pth
+
+------------------- Model successfully initialised ------------------- 
+
+------------------------------- Test Data loading -------------------------------
+Test set path: data/ncars/max_32x32_DATASETS/plain/test_n_cars_dataset_maxpooling_1framepereventset_plain.pth
+Total number of samples in test_loader: 8607
+
+---------------------------- Test Data loaded successfully ----------------------------
+
+######################################### Classification report #########################################
+              precision    recall  f1-score   support
+
+         0.0     0.7062    0.9311    0.8032      4211
+         1.0     0.9051    0.6290    0.7422      4396
+
+    accuracy                         0.7768      8607
+   macro avg     0.8057    0.7801    0.7727      8607
+weighted avg     0.8078    0.7768    0.7721      8607
+
+
+##########################################################################################################
+
+############################################# Accuracy score #############################################
+0.7768095736028814
+
+##########################################################################################################
+
+##################### [Inference time] - Testing model for 5 iterations #####################
+
+### Testing - Iteration 1/5 ###
+
+
+Iteration 1 completed: Total examples: 8607, Accuracy: 77.68%
+Inference time for iteration 1: 0 min 7.82 sec
+
+### Testing - Iteration 2/5 ###
+
+
+Iteration 2 completed: Total examples: 8607, Accuracy: 77.68%
+Inference time for iteration 2: 0 min 7.84 sec
+
+### Testing - Iteration 3/5 ###
+
+
+Iteration 3 completed: Total examples: 8607, Accuracy: 77.68%
+Inference time for iteration 3: 0 min 7.80 sec
+
+### Testing - Iteration 4/5 ###
+
+
+Iteration 4 completed: Total examples: 8607, Accuracy: 77.68%
+Inference time for iteration 4: 0 min 7.78 sec
+
+### Testing - Iteration 5/5 ###
+
+
+Iteration 5 completed: Total examples: 8607, Accuracy: 77.68%
+Inference time for iteration 5: 0 min 7.78 sec
+
+Average Inference time over 5 iterations: 0 min 7.80 sec
+
+Average Inference time per sample: 0.91 ms
+
+##################### [Inference time] - Testing completed #####################

@@ -1,0 +1,99 @@
+
+-------------------- Extract model info from the train_log.txt -------------------
+Class of the model: CNNLeNet
+Quantised model: False
+Number of classes: 10
+(num_classes = 10)
+Test set path: data/nmnist/Plain_Binary/Plain-Binary_1FramePerEventSet_test_dataset.pth
+
+-------------------- Model info extracted successfully -------------------
+
+------------------- Model initialisation and loading -------------------
+Model was not quantised, model structure: 
+CNNLeNet(
+  (conv1): Conv2d(2, 6, kernel_size=(5, 5), stride=(1, 1), bias=False)
+  (relu1): ReLU()
+  (pool1): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv2): Conv2d(6, 16, kernel_size=(5, 5), stride=(1, 1), bias=False)
+  (relu2): ReLU()
+  (pool2): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv3): Conv2d(16, 120, kernel_size=(5, 5), stride=(1, 1), bias=False)
+  (relu3): ReLU()
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc1): Linear(in_features=120, out_features=84, bias=False)
+  (relu4): ReLU()
+  (fc2): Linear(in_features=84, out_features=10, bias=False)
+)
+Load model from: experiments/exp016/model.pth
+
+------------------- Model successfully initialised ------------------- 
+
+------------------------------- Test Data loading -------------------------------
+Test set path: data/nmnist/Plain_Binary/Plain-Binary_1FramePerEventSet_test_dataset.pth
+Total number of samples in test_loader: 10000
+
+---------------------------- Test Data loaded successfully ----------------------------
+
+######################################### Classification report #########################################
+              precision    recall  f1-score   support
+
+           0     0.9898    0.9908    0.9903       980
+           1     0.9921    0.9947    0.9934      1135
+           2     0.9903    0.9893    0.9898      1032
+           3     0.9833    0.9931    0.9882      1010
+           4     0.9918    0.9898    0.9908       982
+           5     0.9832    0.9843    0.9838       892
+           6     0.9885    0.9875    0.9880       958
+           7     0.9912    0.9825    0.9868      1028
+           8     0.9747    0.9877    0.9811       974
+           9     0.9879    0.9732    0.9805      1009
+
+    accuracy                         0.9874     10000
+   macro avg     0.9873    0.9873    0.9873     10000
+weighted avg     0.9874    0.9874    0.9874     10000
+
+
+##########################################################################################################
+
+############################################# Accuracy score #############################################
+0.9874
+
+##########################################################################################################
+
+##################### [Inference time] - Testing model for 5 iterations #####################
+
+### Testing - Iteration 1/5 ###
+
+
+Iteration 1 completed: Total examples: 10000, Accuracy: 98.74%
+Inference time for iteration 1: 0 min 8.35 sec
+
+### Testing - Iteration 2/5 ###
+
+
+Iteration 2 completed: Total examples: 10000, Accuracy: 98.74%
+Inference time for iteration 2: 0 min 8.54 sec
+
+### Testing - Iteration 3/5 ###
+
+
+Iteration 3 completed: Total examples: 10000, Accuracy: 98.74%
+Inference time for iteration 3: 0 min 8.70 sec
+
+### Testing - Iteration 4/5 ###
+
+
+Iteration 4 completed: Total examples: 10000, Accuracy: 98.74%
+Inference time for iteration 4: 0 min 8.46 sec
+
+### Testing - Iteration 5/5 ###
+
+
+Iteration 5 completed: Total examples: 10000, Accuracy: 98.74%
+Inference time for iteration 5: 0 min 8.29 sec
+
+Average Inference time over 5 iterations: 0 min 8.47 sec
+
+Average Inference time per sample: 0.85 ms
+
+##################### [Inference time] - Testing completed #####################

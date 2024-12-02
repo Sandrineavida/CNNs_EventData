@@ -1,0 +1,130 @@
+========================================================================================================
+Experiment: exp024
+Checkpoint path: experiments/exp024/checkpoint.pth
+
+######################### Model architecture #########################
+SeparableConv_LeNet(
+  (conv1): DepthwiseSeparableConv(
+    (depthwise): Conv2d(2, 2, kernel_size=(5, 5), stride=(1, 1), groups=2, bias=False)
+    (pointwise): Conv2d(2, 6, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  )
+  (relu1): ReLU()
+  (pool1): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv2): DepthwiseSeparableConv(
+    (depthwise): Conv2d(6, 6, kernel_size=(5, 5), stride=(1, 1), groups=6, bias=False)
+    (pointwise): Conv2d(6, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  )
+  (relu2): ReLU()
+  (pool2): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv3): DepthwiseSeparableConv(
+    (depthwise): Conv2d(16, 16, kernel_size=(5, 5), stride=(1, 1), groups=16, bias=False)
+    (pointwise): Conv2d(16, 120, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  )
+  (relu3): ReLU()
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc1): Linear(in_features=120, out_features=84, bias=False)
+  (relu4): ReLU()
+  (fc2): Linear(in_features=84, out_features=1, bias=False)
+)
+Total number of paramters in the model: 12792
+Quantised model: False
+
+################### Model successfully initialised ###################
+
+################## Setting up training components ##################
+Number of classes: 2
+Model quantised: False
+Device: (CPU)
+Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+Number of epochs: 40
+Criteria: BCEWithLogitsLoss()
+Optimizer: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+Scheduler: <torch.optim.lr_scheduler.ReduceLROnPlateau object at 0x0000026AB1EA8760>
+Patience: 7
+
+################## Training components set up successfully ##################
+
+############################## Data loading ##############################
+Train set path: data/ncars/ave_32x32_DATASETS/plain/train_n_cars_dataset_poolingave_1framepereventset_plain.pth
+Valid set path: data/ncars/ave_32x32_DATASETS/plain/valid_n_cars_dataset_poolingave_1framepereventset_plain.pth
+Test set path: data/ncars/ave_32x32_DATASETS/plain/test_n_cars_dataset_poolingave_1framepereventset_plain.pth
+Total number of samples in train_loader: 11566
+Total number of samples in valid_loader: 3856
+Total number of samples in test_loader: 8607
+
+######################### Data loaded successfully #########################
+
+################################## checkpoint info ##################################
+No checkpoint found at experiments/exp024/checkpoint.pth. Starting training from scratch.
+
+#####################################################################################
+
+############################## Training started ##############################
+Model saved at epoch 1 with validation loss 0.5985.
+Epoch 1/40, Train Loss: 0.6782, Train Acc: 67.97%, Valid Loss: 0.5985, Valid Acc: 75.60%, Test Loss: 0.6418, Test Acc: 64.82%, Train Time: 7.48s
+Model saved at epoch 2 with validation loss 0.4574.
+Epoch 2/40, Train Loss: 0.5068, Train Acc: 76.09%, Valid Loss: 0.4574, Valid Acc: 79.07%, Test Loss: 0.5834, Test Acc: 70.50%, Train Time: 7.65s
+Model saved at epoch 3 with validation loss 0.4245.
+Epoch 3/40, Train Loss: 0.4514, Train Acc: 78.85%, Valid Loss: 0.4245, Valid Acc: 80.26%, Test Loss: 0.5679, Test Acc: 72.53%, Train Time: 7.14s
+Epoch 4/40, Train Loss: 0.4374, Train Acc: 79.21%, Valid Loss: 0.4254, Valid Acc: 80.32%, Test Loss: 0.5355, Test Acc: 75.82%, Train Time: 7.17s
+Model saved at epoch 5 with validation loss 0.3998.
+Epoch 5/40, Train Loss: 0.4205, Train Acc: 80.59%, Valid Loss: 0.3998, Valid Acc: 81.85%, Test Loss: 0.5062, Test Acc: 76.91%, Train Time: 6.68s
+Epoch 6/40, Train Loss: 0.4148, Train Acc: 80.50%, Valid Loss: 0.4207, Valid Acc: 80.03%, Test Loss: 0.5668, Test Acc: 72.62%, Train Time: 7.01s
+Epoch 7/40, Train Loss: 0.4197, Train Acc: 80.30%, Valid Loss: 0.4735, Valid Acc: 76.82%, Test Loss: 0.6496, Test Acc: 67.15%, Train Time: 7.00s
+Epoch 8/40, Train Loss: 0.4146, Train Acc: 80.60%, Valid Loss: 0.4492, Valid Acc: 78.09%, Test Loss: 0.6018, Test Acc: 69.30%, Train Time: 6.76s
+Model saved at epoch 9 with validation loss 0.3835.
+Epoch 9/40, Train Loss: 0.3976, Train Acc: 81.49%, Valid Loss: 0.3835, Valid Acc: 81.98%, Test Loss: 0.5247, Test Acc: 74.99%, Train Time: 7.46s
+Epoch 10/40, Train Loss: 0.3866, Train Acc: 82.47%, Valid Loss: 0.4683, Valid Acc: 76.09%, Test Loss: 0.5316, Test Acc: 77.16%, Train Time: 6.89s
+Epoch 11/40, Train Loss: 0.3815, Train Acc: 82.34%, Valid Loss: 0.3850, Valid Acc: 82.88%, Test Loss: 0.5862, Test Acc: 74.76%, Train Time: 7.53s
+Epoch 12/40, Train Loss: 0.3741, Train Acc: 82.67%, Valid Loss: 0.4161, Valid Acc: 80.96%, Test Loss: 0.5625, Test Acc: 73.21%, Train Time: 7.20s
+Model saved at epoch 13 with validation loss 0.3610.
+Epoch 13/40, Train Loss: 0.3801, Train Acc: 82.52%, Valid Loss: 0.3610, Valid Acc: 83.90%, Test Loss: 0.5780, Test Acc: 71.93%, Train Time: 8.50s
+Epoch 14/40, Train Loss: 0.3674, Train Acc: 83.19%, Valid Loss: 0.3773, Valid Acc: 83.43%, Test Loss: 0.5274, Test Acc: 76.43%, Train Time: 7.43s
+Epoch 15/40, Train Loss: 0.3729, Train Acc: 82.87%, Valid Loss: 0.4172, Valid Acc: 80.71%, Test Loss: 0.4972, Test Acc: 76.88%, Train Time: 7.36s
+Epoch 16/40, Train Loss: 0.3805, Train Acc: 82.32%, Valid Loss: 0.3767, Valid Acc: 82.39%, Test Loss: 0.5429, Test Acc: 74.79%, Train Time: 7.08s
+Epoch 17/40, Train Loss: 0.3718, Train Acc: 82.52%, Valid Loss: 0.3983, Valid Acc: 81.43%, Test Loss: 0.5511, Test Acc: 74.76%, Train Time: 6.78s
+Epoch 18/40, Train Loss: 0.3534, Train Acc: 83.65%, Valid Loss: 0.3840, Valid Acc: 82.91%, Test Loss: 0.5035, Test Acc: 77.70%, Train Time: 7.03s
+Epoch 19/40, Train Loss: 0.3434, Train Acc: 84.60%, Valid Loss: 0.3891, Valid Acc: 82.65%, Test Loss: 0.5029, Test Acc: 77.32%, Train Time: 7.21s
+Epoch 20/40, Train Loss: 0.3354, Train Acc: 85.08%, Valid Loss: 0.4497, Valid Acc: 78.71%, Test Loss: 0.5103, Test Acc: 78.44%, Train Time: 7.34s
+Early stopping at epoch 20. No improvement in validation loss for 7 consecutive epochs.
+Loaded the best model state based on validation loss.
+
+        ############### Training completed in 144.68s. ###############
+        Average time per epoch: 7.23s.
+        Trained for 20/40 epochs.
+        ##############################################################
+        
+
+############################## Training completed ##############################
+============================== Model saved to: experiments\exp024\model.pth ==============================
+
+######################################### Classification report #########################################
+              precision    recall  f1-score   support
+
+         0.0     0.7595    0.7898    0.7744      4211
+         1.0     0.7907    0.7605    0.7753      4396
+
+    accuracy                         0.7748      8607
+   macro avg     0.7751    0.7752    0.7748      8607
+weighted avg     0.7754    0.7748    0.7748      8607
+
+
+##########################################################################################################
+
+############################################# Accuracy score #############################################
+0.7821540606483095
+
+##########################################################################################################
+

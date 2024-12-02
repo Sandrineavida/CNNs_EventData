@@ -63,6 +63,11 @@ def get_inference_time(model, test_data_path, num_tests=5, logger=None):
     avg_minutes, avg_seconds = divmod(average_inference_time.total_seconds(), 60)
     logger.info(f"\nAverage Inference time over {num_tests} iterations: {int(avg_minutes)} min {avg_seconds:.2f} sec")
 
+    num_test_samples = len(test_dataloader.dataset)
+    ave_inference_time_per_sample = average_inference_time / num_test_samples
+    ave_inference_time_per_sample_ms = ave_inference_time_per_sample.total_seconds() * 1000
+    logger.info(f"\nAverage Inference time per sample: {ave_inference_time_per_sample_ms:.2f} ms")
+
     logger.info("\n##################### [Inference time] - Testing completed #####################")
     return average_inference_time
 

@@ -124,11 +124,10 @@ def train_model_sheduled(
         model.load_state_dict(best_model_state)
         logger.info("Loaded the best model state based on validation loss.")
 
-    total_train_time = sum(train_times)
-    average_train_time = total_train_time / num_epochs
-
 
     final_epoch = stopped_at_epoch if stopped_at_epoch is not None else num_epochs
+    total_train_time = sum(train_times)
+    average_train_time = total_train_time / final_epoch
     logger.info(
         f"""
         ############### Training completed in {total_train_time:.2f}s. ###############

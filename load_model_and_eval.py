@@ -6,20 +6,23 @@ from models.separable_convolution import SeparableConv_LeNet, MobileNet
 from utils.log import Logger
 from utils.model_load_helper import load_clean_state_dict
 import warnings
+import os
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 path_dir = "experiments/"
-exp = "exp009/"
+exp = "exp032/"
 train_log_path = path_dir + exp + "train_log.txt"
 
-logger = Logger(log_exp=exp, log_dir="experiments", log_file="test_log.txt")
+logger = Logger(log_exp=exp, log_dir="experiments", log_file="reload_eval_log.txt")
 
 logger.info("\n-------------------- Extract model info from the train_log.txt -------------------")
 # Check the log to see if the model is quantised
 # and Get the  `scale` and `zero_point` params from the log
 # and Get the class of the model
+# and get the test set path
 model_class = None
 num_classes = None
+test_dataset_path = None
 quantised = None
 scale, zero_point = None, None
 with open(train_log_path, "r") as f:
@@ -49,7 +52,11 @@ with open(train_log_path, "r") as f:
                 zero_point = int(line.split("=")[-1])
                 logger.info(f"Zero point: {zero_point}")
 
-        if model_class is not None and num_classes is not None and quantised is not None:
+        if line.startswith("Test set path"):
+            test_dataset_path = line.split(": ")[-1]
+            logger.info(f"Test set path: {test_dataset_path}")
+
+        if model_class is not None and num_classes is not None and quantised is not None and test_dataset_path is not None:
             if not quantised:
                break
             elif quantised and scale is not None and zero_point is not None:
@@ -96,7 +103,7 @@ logger.info("\n------------------- Model successfully initialised --------------
 
 logger.info("\n------------------------------- Test Data loading -------------------------------")
 from utils.datasets import get_dataloader
-test_dataset_path = "data/ncars/ave_32x32_DATASETS/plain/test_n_cars_dataset_poolingave_1framepereventset_plain.pth"
+# test_dataset_path = "data/ncars/ave_32x32_DATASETS/plain/test_n_cars_dataset_poolingave_1framepereventset_plain.pth"
 batch_size = 32
 test_dataloader = get_dataloader(test_dataset_path,
                                     batch_size)
@@ -108,3 +115,11 @@ from utils.metrics import get_classification_report
 get_classification_report(test_dataloader, model, logger=logger)
 from utils.metrics import get_accuracy_score
 get_accuracy_score(test_dataloader, model, logger=logger)
+
+# from utils.metrics import get_confusion_matrix
+# exp_path = os.path.join("experiments", exp)
+# save_cm_path = os.path.join(exp_path, "confusion_matrix.png")
+# get_confusion_matrix(test_dataloader, model, save_path=save_cm_path)
+
+from utils.metrics import get_inference_time
+average_inference_time = get_inference_time(model, test_dataset_path, num_tests=5, logger=logger)

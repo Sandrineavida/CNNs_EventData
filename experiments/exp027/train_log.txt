@@ -1,0 +1,142 @@
+========================================================================================================
+Experiment: exp027
+Checkpoint path: experiments/exp027/checkpoint.pth
+
+######################### Model architecture #########################
+CNNLeNet(
+  (quant): QuantStub()
+  (dequant): DeQuantStub()
+  (conv1): Conv2d(2, 6, kernel_size=(5, 5), stride=(1, 1), bias=False)
+  (relu1): ReLU()
+  (pool1): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv2): Conv2d(6, 16, kernel_size=(5, 5), stride=(1, 1), bias=False)
+  (relu2): ReLU()
+  (pool2): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv3): Conv2d(16, 120, kernel_size=(5, 5), stride=(1, 1), bias=False)
+  (relu3): ReLU()
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc1): Linear(in_features=120, out_features=84, bias=False)
+  (relu4): ReLU()
+  (fc2): Linear(in_features=84, out_features=1, bias=False)
+)
+Total number of paramters in the model: 60864
+Quantised model: True
+
+################### Model successfully initialised ###################
+
+################## Setting up training components ##################
+Number of classes: 2
+Model quantised: True
+Device: (CPU)
+Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+Number of epochs: 40
+Criteria: BCEWithLogitsLoss()
+Optimizer: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+Scheduler: <torch.optim.lr_scheduler.ReduceLROnPlateau object at 0x000001B5A0CC44F0>
+Patience: 7
+
+################## Training components set up successfully ##################
+
+############################## Data loading ##############################
+Train set path: data/ncars/max_32x32_DATASETS/plain/train_n_cars_dataset_maxpooling_1framepereventset_plain.pth
+Valid set path: data/ncars/max_32x32_DATASETS/plain/valid_n_cars_dataset_maxpooling_1framepereventset_plain.pth
+Test set path: data/ncars/max_32x32_DATASETS/plain/test_n_cars_dataset_maxpooling_1framepereventset_plain.pth
+Total number of samples in train_loader: 11566
+Total number of samples in valid_loader: 3856
+Total number of samples in test_loader: 8607
+
+######################### Data loaded successfully #########################
+
+################################## checkpoint info ##################################
+No checkpoint found at experiments/exp027/checkpoint.pth. Starting training from scratch.
+
+#####################################################################################
+
+############################## Training started ##############################
+Model saved at epoch 1 with validation loss 0.3112.
+Epoch 1/40, Train Loss: 0.4318, Train Acc: 80.21%, Valid Loss: 0.3112, Valid Acc: 86.23%, Test Loss: 0.4478, Test Acc: 80.11%, Train Time: 3.45s
+Model saved at epoch 2 with validation loss 0.2419.
+Epoch 2/40, Train Loss: 0.2810, Train Acc: 88.39%, Valid Loss: 0.2419, Valid Acc: 90.02%, Test Loss: 0.3618, Test Acc: 84.51%, Train Time: 3.32s
+Model saved at epoch 3 with validation loss 0.2233.
+Epoch 3/40, Train Loss: 0.2343, Train Acc: 90.25%, Valid Loss: 0.2233, Valid Acc: 91.26%, Test Loss: 0.3427, Test Acc: 85.49%, Train Time: 3.31s
+Epoch 4/40, Train Loss: 0.2026, Train Acc: 91.74%, Valid Loss: 0.2242, Valid Acc: 91.00%, Test Loss: 0.3728, Test Acc: 85.59%, Train Time: 3.40s
+Epoch 5/40, Train Loss: 0.1847, Train Acc: 92.62%, Valid Loss: 0.2408, Valid Acc: 90.56%, Test Loss: 0.3687, Test Acc: 84.77%, Train Time: 3.41s
+Model saved at epoch 6 with validation loss 0.2095.
+Epoch 6/40, Train Loss: 0.1648, Train Acc: 93.38%, Valid Loss: 0.2095, Valid Acc: 91.75%, Test Loss: 0.4103, Test Acc: 85.17%, Train Time: 3.56s
+Model saved at epoch 7 with validation loss 0.2014.
+Epoch 7/40, Train Loss: 0.1491, Train Acc: 94.16%, Valid Loss: 0.2014, Valid Acc: 92.61%, Test Loss: 0.3620, Test Acc: 86.02%, Train Time: 3.23s
+Epoch 8/40, Train Loss: 0.1303, Train Acc: 94.73%, Valid Loss: 0.2045, Valid Acc: 92.48%, Test Loss: 0.5321, Test Acc: 83.94%, Train Time: 3.54s
+Model saved at epoch 9 with validation loss 0.1802.
+Epoch 9/40, Train Loss: 0.1202, Train Acc: 95.45%, Valid Loss: 0.1802, Valid Acc: 93.10%, Test Loss: 0.3810, Test Acc: 85.37%, Train Time: 3.97s
+Epoch 10/40, Train Loss: 0.1004, Train Acc: 96.16%, Valid Loss: 0.2049, Valid Acc: 92.74%, Test Loss: 0.4028, Test Acc: 86.41%, Train Time: 3.34s
+Epoch 11/40, Train Loss: 0.0892, Train Acc: 96.64%, Valid Loss: 0.1905, Valid Acc: 93.62%, Test Loss: 0.4581, Test Acc: 85.76%, Train Time: 3.27s
+Epoch 12/40, Train Loss: 0.0770, Train Acc: 97.14%, Valid Loss: 0.2132, Valid Acc: 93.31%, Test Loss: 0.5177, Test Acc: 85.59%, Train Time: 3.55s
+Epoch 13/40, Train Loss: 0.0706, Train Acc: 97.27%, Valid Loss: 0.2307, Valid Acc: 93.05%, Test Loss: 0.4812, Test Acc: 86.84%, Train Time: 3.25s
+Epoch 14/40, Train Loss: 0.0334, Train Acc: 98.95%, Valid Loss: 0.2135, Valid Acc: 94.01%, Test Loss: 0.5518, Test Acc: 87.05%, Train Time: 3.35s
+Epoch 15/40, Train Loss: 0.0251, Train Acc: 99.30%, Valid Loss: 0.2244, Valid Acc: 93.98%, Test Loss: 0.5567, Test Acc: 87.25%, Train Time: 3.35s
+Epoch 16/40, Train Loss: 0.0216, Train Acc: 99.39%, Valid Loss: 0.2303, Valid Acc: 93.83%, Test Loss: 0.6094, Test Acc: 86.96%, Train Time: 3.22s
+Early stopping at epoch 16. No improvement in validation loss for 7 consecutive epochs.
+Loaded the best model state based on validation loss.
+
+        ############### Training completed in 54.53s. ###############
+        Average time per epoch: 3.41s.
+        Trained for 16/40 epochs.
+        ##############################################################
+        
+
+############################## Training completed ##############################
+========================================================================================================
+
+!---------------------------- Quantised model saved to: experiments\exp027\quantised_model.pth ----------------------------!
+scale=1.2803839445114136
+zero_point=1
+!-------------------------------------------------------------------------------------------------------------------------!
+
+Model quantised:
+CNNLeNet(
+  (quant): Quantize(scale=tensor([1.2804]), zero_point=tensor([1]), dtype=torch.quint8)
+  (dequant): DeQuantize()
+  (conv1): QuantizedConv2d(2, 6, kernel_size=(5, 5), stride=(1, 1), scale=1.0370802879333496, zero_point=68, bias=False)
+  (relu1): ReLU()
+  (pool1): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv2): QuantizedConv2d(6, 16, kernel_size=(5, 5), stride=(1, 1), scale=0.7497825026512146, zero_point=83, bias=False)
+  (relu2): ReLU()
+  (pool2): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv3): QuantizedConv2d(16, 120, kernel_size=(5, 5), stride=(1, 1), scale=0.41756266355514526, zero_point=90, bias=False)
+  (relu3): ReLU()
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc1): QuantizedLinear(in_features=120, out_features=84, scale=0.374576598405838, zero_point=68, qscheme=torch.per_channel_affine)
+  (relu4): ReLU()
+  (fc2): QuantizedLinear(in_features=84, out_features=1, scale=1.3398946523666382, zero_point=47, qscheme=torch.per_channel_affine)
+)
+========================================================================================================
+
+######################################### Classification report #########################################
+              precision    recall  f1-score   support
+
+         0.0     0.7062    0.9311    0.8032      4211
+         1.0     0.9051    0.6290    0.7422      4396
+
+    accuracy                         0.7768      8607
+   macro avg     0.8057    0.7801    0.7727      8607
+weighted avg     0.8078    0.7768    0.7721      8607
+
+
+##########################################################################################################
+
+############################################# Accuracy score #############################################
+0.7768095736028814
+
+##########################################################################################################
