@@ -9,9 +9,14 @@ import numpy as np
 from sklearn.metrics import classification_report
 from sklearn.metrics import accuracy_score
 
+
 def get_inference_time(model, test_data_path, num_tests=5, logger=None):
     model.eval()
-    logger.info(f"\n##################### [Inference time] - Testing model for {num_tests} iterations #####################")
+
+    # 确保模型和数据在同一设备上
+    device = next(model.parameters()).device  # 获取模型的设备
+    logger.info(f"Model is on device: {device}")
+
     test_dataloader = get_test_dataloader_batch_size_eq_1(test_data_path)
 
     total_inference_time = datetime.timedelta()
@@ -28,7 +33,8 @@ def get_inference_time(model, test_data_path, num_tests=5, logger=None):
         all_labels = []
 
         for i, (inputs, labels) in enumerate(test_dataloader):
-            inputs, labels = inputs, labels
+            # 确保输入数据移动到模型的设备
+            inputs, labels = inputs.to(device), labels.to(device)
 
             if num_classes == 1:
                 outputs = model(inputs).squeeze(1)
@@ -44,11 +50,10 @@ def get_inference_time(model, test_data_path, num_tests=5, logger=None):
             correct += (predicted_test == labels).sum().item()
             total += labels.size(0)
 
-            # Real-time progress display in the terminal
+            # 实时显示推断进度
             sys.stdout.write(f"\rExample: {total}, test success: {100 * correct / total:.2f}%")
             sys.stdout.flush()
 
-        # Log final results for the iteration
         logger.info(f"\nIteration {test_iteration + 1} completed: "
                     f"Total examples: {total}, Accuracy: {100 * correct / total:.2f}%")
 
@@ -71,19 +76,24 @@ def get_inference_time(model, test_data_path, num_tests=5, logger=None):
     logger.info("\n##################### [Inference time] - Testing completed #####################")
     return average_inference_time
 
+
 def get_preds_and_labels(model, test_dataloader):
     model.eval()
     all_preds = []
     all_labels = []
 
+    # 获取模型所在的设备
+    device = next(model.parameters()).device
+
     for inputs, labels in test_dataloader:
+        # 将数据移动到模型所在设备
+        inputs, labels = inputs.to(device), labels.to(device)
+
         if model.num_classes == 1:
-            inputs, labels = inputs.float(), labels.float()
             outputs = model(inputs).squeeze(1)
             labels = labels.float()
             predicted_test = torch.sigmoid(outputs) >= 0.5
         else:
-            inputs, labels = inputs, labels
             outputs = model(inputs)
             _, predicted_test = torch.max(outputs.data, 1)
 
@@ -92,22 +102,27 @@ def get_preds_and_labels(model, test_dataloader):
 
     return all_preds, all_labels
 
+
 def get_classification_report(test_dataloader, model, logger=None):
     all_preds, all_labels = get_preds_and_labels(model, test_dataloader)
     # Convert the set of numerical labels to strings
     target_names = [str(i) for i in set(all_labels)]
 
-    logger.info("\n######################################### Classification report #########################################")
+    logger.info(
+        "\n######################################### Classification report #########################################")
     logger.info(classification_report(all_labels, all_preds, target_names=target_names, digits=4))
-    logger.info("\n##########################################################################################################")
+    logger.info(
+        "\n##########################################################################################################")
 
 
 def get_accuracy_score(test_dataloader, model, logger=None):
     all_preds, all_labels = get_preds_and_labels(model, test_dataloader)
 
-    logger.info("\n############################################# Accuracy score #############################################")
+    logger.info(
+        "\n############################################# Accuracy score #############################################")
     logger.info(accuracy_score(all_labels, all_preds))
-    logger.info("\n##########################################################################################################")
+    logger.info(
+        "\n##########################################################################################################")
 
 
 def get_confusion_matrix(test_dataloader, model, save_path=None):
@@ -117,7 +132,7 @@ def get_confusion_matrix(test_dataloader, model, save_path=None):
     cm_percentage = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis] * 100
 
     labels = np.array([["{0}\n{1:.2f}%".format(value, percentage) for value, percentage in zip(row, percent_row)]
-                          for row, percent_row in zip(cm, cm_percentage)])
+                       for row, percent_row in zip(cm, cm_percentage)])
 
     plt.figure(figsize=(9, 7))
     sns.heatmap(cm, annot=labels, fmt='', cmap='Blues', cbar=True, xticklabels=True, yticklabels=True)
