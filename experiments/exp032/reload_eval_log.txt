@@ -198,3 +198,83 @@ Average Inference time over 5 iterations: 0 min 7.30 sec
 Average Inference time per sample: 0.85 ms
 
 ##################### [Inference time] - Testing completed #####################
+
+-------------------- Extract model info from the train_log.txt -------------------
+Class of the model: SeparableConv_LeNet
+Quantised model: False
+Number of classes: 2
+(num_classes = 1)
+Device: cpu
+Test set path: data/ncars/max_32x32_DATASETS/plain-binary/test_n_cars_dataset_maxpooling_1framepereventset_plain_binary.pth
+
+-------------------- Model info extracted successfully -------------------
+
+------------------- Model initialisation and loading -------------------
+Model was not quantised, model structure: 
+
+-------------------- Extract model info from the train_log.txt -------------------
+Class of the model: SeparableConv_LeNet
+Quantised model: False
+Number of classes: 2
+(num_classes = 1)
+Device: cpu
+Test set path: data/ncars/max_32x32_DATASETS/plain-binary/test_n_cars_dataset_maxpooling_1framepereventset_plain_binary.pth
+
+-------------------- Model info extracted successfully -------------------
+
+------------------- Model initialisation and loading -------------------
+Model was not quantised, model structure: 
+SeparableConv_LeNet(
+  (conv1): DepthwiseSeparableConv(
+    (depthwise): Conv2d(2, 2, kernel_size=(5, 5), stride=(1, 1), groups=2, bias=False)
+    (pointwise): Conv2d(2, 6, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  )
+  (relu1): ReLU()
+  (pool1): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv2): DepthwiseSeparableConv(
+    (depthwise): Conv2d(6, 6, kernel_size=(5, 5), stride=(1, 1), groups=6, bias=False)
+    (pointwise): Conv2d(6, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  )
+  (relu2): ReLU()
+  (pool2): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  (conv3): DepthwiseSeparableConv(
+    (depthwise): Conv2d(16, 16, kernel_size=(5, 5), stride=(1, 1), groups=16, bias=False)
+    (pointwise): Conv2d(16, 120, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  )
+  (relu3): ReLU()
+  (avgpool): AdaptiveAvgPool2d(output_size=1)
+  (fc1): Linear(in_features=120, out_features=84, bias=False)
+  (relu4): ReLU()
+  (fc2): Linear(in_features=84, out_features=1, bias=False)
+)
+Load model from: experiments/exp032/model.pth
+
+------------------- Model successfully initialised ------------------- 
+
+------------------------------- Test Data loading -------------------------------
+Test set path: data/ncars/max_32x32_DATASETS/plain-binary/test_n_cars_dataset_maxpooling_1framepereventset_plain_binary.pth
+Total number of samples in test_loader: 8607
+
+---------------------------- Test Data loaded successfully ----------------------------
+
+######################################### Classification report #########################################
+              precision    recall  f1-score   support
+
+         0.0     0.7784    0.8198    0.7985      4211
+         1.0     0.8181    0.7764    0.7967      4396
+
+    accuracy                         0.7976      8607
+   macro avg     0.7982    0.7981    0.7976      8607
+weighted avg     0.7986    0.7976    0.7976      8607
+
+
+##########################################################################################################
+
+############################################# Accuracy score #############################################
+0.797606599279656
+
+##########################################################################################################
+Model is on device: cpu
+
+### Testing - Iteration 1/5 ###
+

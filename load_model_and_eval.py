@@ -20,6 +20,7 @@ logger.info("\n-------------------- Extract model info from the train_log.txt --
 # and Get the  `scale` and `zero_point` params from the log
 # and Get the class of the model
 # and get the test set path
+device = None
 model_class = None
 num_classes = None
 test_dataset_path = None
@@ -29,6 +30,12 @@ with open(train_log_path, "r") as f:
     lines = f.readlines()
     for i, line in enumerate(lines):
         line = line.strip()
+        if "Device: (CPU)" in line:
+            device = torch.device("cpu")
+            logger.info(f"Device: {device}")
+        elif "Device: (GPU)" in line:
+            device = torch.device("cuda")
+            logger.info(f"Device: {device}")
         if "######################### Model architecture #########################" in line:
             model_line = lines[i + 1].strip()
             model_class = model_line.split("(")[0]
@@ -56,7 +63,7 @@ with open(train_log_path, "r") as f:
             test_dataset_path = line.split(": ")[-1]
             logger.info(f"Test set path: {test_dataset_path}")
 
-        if model_class is not None and num_classes is not None and quantised is not None and test_dataset_path is not None:
+        if device is not None and model_class is not None and num_classes is not None and quantised is not None and test_dataset_path is not None:
             if not quantised:
                break
             elif quantised and scale is not None and zero_point is not None:
@@ -95,6 +102,7 @@ else:
     state_dict = torch.load(dict_path)
     clean_state_dict = load_clean_state_dict(model, state_dict)  # clean the extra (futile) keys
     model.load_state_dict(clean_state_dict)
+    model = model.to(device)
     model.eval()
     logger.info(model)
 
@@ -112,9 +120,9 @@ logger.info(f"Total number of samples in test_loader: {len(test_dataloader.datas
 logger.info("\n---------------------------- Test Data loaded successfully ----------------------------")
 
 from utils.metrics import get_classification_report
-get_classification_report(test_dataloader, model, logger=logger)
+get_classification_report(test_dataloader, model, logger=logger, device=device)
 from utils.metrics import get_accuracy_score
-get_accuracy_score(test_dataloader, model, logger=logger)
+get_accuracy_score(test_dataloader, model, logger=logger, device=device)
 
 # from utils.metrics import get_confusion_matrix
 # exp_path = os.path.join("experiments", exp)
@@ -122,4 +130,4 @@ get_accuracy_score(test_dataloader, model, logger=logger)
 # get_confusion_matrix(test_dataloader, model, save_path=save_cm_path)
 
 from utils.metrics import get_inference_time
-average_inference_time = get_inference_time(model, test_dataset_path, num_tests=5, logger=logger)
+average_inference_time = get_inference_time(model, test_dataset_path, num_tests=5, logger=logger, device=device)

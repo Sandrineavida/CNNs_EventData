@@ -10,11 +10,11 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import accuracy_score
 
 
-def get_inference_time(model, test_data_path, num_tests=5, logger=None):
+def get_inference_time(model, test_data_path, num_tests=5, logger=None, device=None):
     model.eval()
 
     # 确保模型和数据在同一设备上
-    device = next(model.parameters()).device  # 获取模型的设备
+    # device = next(model.parameters()).device  # 获取模型的设备
     logger.info(f"Model is on device: {device}")
 
     test_dataloader = get_test_dataloader_batch_size_eq_1(test_data_path)
@@ -77,13 +77,13 @@ def get_inference_time(model, test_data_path, num_tests=5, logger=None):
     return average_inference_time
 
 
-def get_preds_and_labels(model, test_dataloader):
+def get_preds_and_labels(model, test_dataloader, device=None):
     model.eval()
     all_preds = []
     all_labels = []
 
     # 获取模型所在的设备
-    device = next(model.parameters()).device
+    # device = next(model.parameters()).device
 
     for inputs, labels in test_dataloader:
         # 将数据移动到模型所在设备
@@ -103,8 +103,8 @@ def get_preds_and_labels(model, test_dataloader):
     return all_preds, all_labels
 
 
-def get_classification_report(test_dataloader, model, logger=None):
-    all_preds, all_labels = get_preds_and_labels(model, test_dataloader)
+def get_classification_report(test_dataloader, model, logger=None, device=None):
+    all_preds, all_labels = get_preds_and_labels(model, test_dataloader, device)
     # Convert the set of numerical labels to strings
     target_names = [str(i) for i in set(all_labels)]
 
@@ -115,8 +115,8 @@ def get_classification_report(test_dataloader, model, logger=None):
         "\n##########################################################################################################")
 
 
-def get_accuracy_score(test_dataloader, model, logger=None):
-    all_preds, all_labels = get_preds_and_labels(model, test_dataloader)
+def get_accuracy_score(test_dataloader, model, logger=None, device=None):
+    all_preds, all_labels = get_preds_and_labels(model, test_dataloader, device)
 
     logger.info(
         "\n############################################# Accuracy score #############################################")
@@ -125,8 +125,8 @@ def get_accuracy_score(test_dataloader, model, logger=None):
         "\n##########################################################################################################")
 
 
-def get_confusion_matrix(test_dataloader, model, save_path=None):
-    all_preds, all_labels = get_preds_and_labels(model, test_dataloader)
+def get_confusion_matrix(test_dataloader, model, save_path=None, device=None):
+    all_preds, all_labels = get_preds_and_labels(model, test_dataloader, device)
 
     cm = confusion_matrix(all_labels, all_preds)
     cm_percentage = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis] * 100

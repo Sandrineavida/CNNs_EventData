@@ -38,12 +38,13 @@ logger.info(f"Checkpoint path: {checkpoint_path}")
 
 
 logger.info("\n######################### Model architecture #########################")
-from models.cnn_lenet import CNNLeNet
+from models.cnn_lenet import CNNLeNet, CNNLeNetWithSkip
 from models.separable_convolution import SeparableConv_LeNet
 # from models.separable_convolution import MobileNet
 
-model = CNNLeNet(num_classes=1, quantised=False)
-# model = SeparableConv_LeNet(num_classes=1, quantised=True)
+# model = CNNLeNet(num_classes=1, quantised=False)
+model = CNNLeNetWithSkip(num_classes=1, quantised=False)
+# model = SeparableConv_LeNet(num_classes=1, quantised=Tue)
 # model = MobileNet(num_classes=1, quantised=False)
 
 logger.info(model)
@@ -71,9 +72,9 @@ logger.info("\n############################## Data loading #####################
 from utils.datasets import get_dataloaders
 # N-CARS
 ## ave - plain
-# train_dataset_path = "data/ncars/ave_32x32_DATASETS/plain/train_n_cars_dataset_poolingave_1framepereventset_plain.pth"
-# valid_dataset_path = "data/ncars/ave_32x32_DATASETS/plain/valid_n_cars_dataset_poolingave_1framepereventset_plain.pth"
-# test_dataset_path = "data/ncars/ave_32x32_DATASETS/plain/test_n_cars_dataset_poolingave_1framepereventset_plain.pth"
+train_dataset_path = "data/ncars/ave_32x32_DATASETS/plain/train_n_cars_dataset_poolingave_1framepereventset_plain.pth"
+valid_dataset_path = "data/ncars/ave_32x32_DATASETS/plain/valid_n_cars_dataset_poolingave_1framepereventset_plain.pth"
+test_dataset_path = "data/ncars/ave_32x32_DATASETS/plain/test_n_cars_dataset_poolingave_1framepereventset_plain.pth"
 
 ## max - plain
 # train_dataset_path = "data/ncars/max_32x32_DATASETS/plain/train_n_cars_dataset_maxpooling_1framepereventset_plain.pth"
@@ -86,9 +87,9 @@ from utils.datasets import get_dataloaders
 # test_dataset_path = "data/ncars/max_32x32_DATASETS/plain-binary/test_n_cars_dataset_maxpooling_1framepereventset_plain_binary.pth"
 
 ## mypadding - plain
-train_dataset_path = "data/ncars/mypadding_128x128_DATASETS/plain/train_n_cars_dataset_mypadding_1framepereventset_plain.pth"
-valid_dataset_path = "data/ncars/mypadding_128x128_DATASETS/plain/valid_n_cars_dataset_mypadding_1framepereventset_plain.pth"
-test_dataset_path = "data/ncars/mypadding_128x128_DATASETS/plain/test_n_cars_dataset_mypadding_1framepereventset_plain.pth"
+# train_dataset_path = "data/ncars/mypadding_128x128_DATASETS/plain/train_n_cars_dataset_mypadding_1framepereventset_plain.pth"
+# valid_dataset_path = "data/ncars/mypadding_128x128_DATASETS/plain/valid_n_cars_dataset_mypadding_1framepereventset_plain.pth"
+# test_dataset_path = "data/ncars/mypadding_128x128_DATASETS/plain/test_n_cars_dataset_mypadding_1framepereventset_plain.pth"
 
 ## mypadding - plain-binary
 # train_dataset_path = "data/ncars/mypadding_128x128_DATASETS/plain binary/train_n_cars_dataset_mypadding_1framepereventset_plain_binary.pth"
@@ -190,14 +191,14 @@ else:
 
 # Evaluate the model
 from utils.metrics import get_classification_report
-get_classification_report(test_dataloader, model, logger=logger)
+get_classification_report(test_dataloader, model, logger=logger, device=device)
 from utils.metrics import get_accuracy_score
-get_accuracy_score(test_dataloader, model, logger=logger)
+get_accuracy_score(test_dataloader, model, logger=logger, device=device)
 
 from utils.metrics import get_confusion_matrix
 save_cm_path = os.path.join(exp_path, "confusion_matrix.png")
-get_confusion_matrix(test_dataloader, model, save_path=save_cm_path)
+get_confusion_matrix(test_dataloader, model, save_path=save_cm_path, device=device)
 
 from utils.metrics import get_inference_time
-average_inference_time = get_inference_time(model, test_dataset_path, num_tests=5, logger=logger)
+average_inference_time = get_inference_time(model, test_dataset_path, num_tests=5, logger=logger, device=device)
 

@@ -4,6 +4,7 @@ Class of the model: SeparableConv_LeNet
 Quantised model: True
 Number of classes: 2
 (num_classes = 1)
+Device: cpu
 Test set path: data/ncars/max_32x32_DATASETS/plain-binary/test_n_cars_dataset_maxpooling_1framepereventset_plain_binary.pth
 Scale: 0.007870171219110489
 Zero point: 0
@@ -64,41 +65,40 @@ weighted avg     0.8103    0.8047    0.8042      8607
 0.8046938538398978
 
 ##########################################################################################################
-
-##################### [Inference time] - Testing model for 5 iterations #####################
+Model is on device: cpu
 
 ### Testing - Iteration 1/5 ###
 
 
 Iteration 1 completed: Total examples: 8607, Accuracy: 80.47%
-Inference time for iteration 1: 0 min 17.12 sec
+Inference time for iteration 1: 0 min 18.10 sec
 
 ### Testing - Iteration 2/5 ###
 
 
 Iteration 2 completed: Total examples: 8607, Accuracy: 80.47%
-Inference time for iteration 2: 0 min 17.02 sec
+Inference time for iteration 2: 0 min 17.97 sec
 
 ### Testing - Iteration 3/5 ###
 
 
 Iteration 3 completed: Total examples: 8607, Accuracy: 80.47%
-Inference time for iteration 3: 0 min 17.17 sec
+Inference time for iteration 3: 0 min 18.47 sec
 
 ### Testing - Iteration 4/5 ###
 
 
 Iteration 4 completed: Total examples: 8607, Accuracy: 80.47%
-Inference time for iteration 4: 0 min 17.05 sec
+Inference time for iteration 4: 0 min 19.77 sec
 
 ### Testing - Iteration 5/5 ###
 
 
 Iteration 5 completed: Total examples: 8607, Accuracy: 80.47%
-Inference time for iteration 5: 0 min 17.08 sec
+Inference time for iteration 5: 0 min 17.67 sec
 
-Average Inference time over 5 iterations: 0 min 17.09 sec
+Average Inference time over 5 iterations: 0 min 18.40 sec
 
-Average Inference time per sample: 1.98 ms
+Average Inference time per sample: 2.14 ms
 
 ##################### [Inference time] - Testing completed #####################
