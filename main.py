@@ -38,12 +38,12 @@ logger.info(f"Checkpoint path: {checkpoint_path}")
 
 
 logger.info("\n######################### Model architecture #########################")
-from models.cnn_lenet import CNNLeNet, CNNLeNetWithSkip
+from models.cnn_lenet import CNNLeNet, CNNwithSkip
 from models.separable_convolution import SeparableConv_LeNet
 # from models.separable_convolution import MobileNet
 
 # model = CNNLeNet(num_classes=1, quantised=False)
-model = CNNLeNetWithSkip(num_classes=1, quantised=False)
+model = CNNwithSkip(num_classes=1, quantised=True)
 # model = SeparableConv_LeNet(num_classes=1, quantised=Tue)
 # model = MobileNet(num_classes=1, quantised=False)
 
@@ -57,7 +57,7 @@ logger.info("\n################### Model successfully initialised ##############
 
 from utils.config_parser import ConfigParser
 from utils.setup import setup_training_components
-train_config = ConfigParser("config/train/train_config_c2.cfg")
+train_config = ConfigParser("config/train/train_config.cfg")
 (num_epochs,
  criteria,
  optimizer,
@@ -72,14 +72,14 @@ logger.info("\n############################## Data loading #####################
 from utils.datasets import get_dataloaders
 # N-CARS
 ## ave - plain
-train_dataset_path = "data/ncars/ave_32x32_DATASETS/plain/train_n_cars_dataset_poolingave_1framepereventset_plain.pth"
-valid_dataset_path = "data/ncars/ave_32x32_DATASETS/plain/valid_n_cars_dataset_poolingave_1framepereventset_plain.pth"
-test_dataset_path = "data/ncars/ave_32x32_DATASETS/plain/test_n_cars_dataset_poolingave_1framepereventset_plain.pth"
+# train_dataset_path = "data/ncars/ave_32x32_DATASETS/plain/train_n_cars_dataset_poolingave_1framepereventset_plain.pth"
+# valid_dataset_path = "data/ncars/ave_32x32_DATASETS/plain/valid_n_cars_dataset_poolingave_1framepereventset_plain.pth"
+# test_dataset_path = "data/ncars/ave_32x32_DATASETS/plain/test_n_cars_dataset_poolingave_1framepereventset_plain.pth"
 
 ## max - plain
-# train_dataset_path = "data/ncars/max_32x32_DATASETS/plain/train_n_cars_dataset_maxpooling_1framepereventset_plain.pth"
-# valid_dataset_path = "data/ncars/max_32x32_DATASETS/plain/valid_n_cars_dataset_maxpooling_1framepereventset_plain.pth"
-# test_dataset_path = "data/ncars/max_32x32_DATASETS/plain/test_n_cars_dataset_maxpooling_1framepereventset_plain.pth"
+train_dataset_path = "data/ncars/max_32x32_DATASETS/plain/train_n_cars_dataset_maxpooling_1framepereventset_plain.pth"
+valid_dataset_path = "data/ncars/max_32x32_DATASETS/plain/valid_n_cars_dataset_maxpooling_1framepereventset_plain.pth"
+test_dataset_path = "data/ncars/max_32x32_DATASETS/plain/test_n_cars_dataset_maxpooling_1framepereventset_plain.pth"
 
 ## max - plain-binary
 # train_dataset_path = "data/ncars/max_32x32_DATASETS/plain-binary/train_n_cars_dataset_maxpooling_1framepereventset_plain-binary.pth"
@@ -199,6 +199,6 @@ from utils.metrics import get_confusion_matrix
 save_cm_path = os.path.join(exp_path, "confusion_matrix.png")
 get_confusion_matrix(test_dataloader, model, save_path=save_cm_path, device=device)
 
-from utils.metrics import get_inference_time
-average_inference_time = get_inference_time(model, test_dataset_path, num_tests=5, logger=logger, device=device)
+# from utils.metrics import get_inference_time
+# average_inference_time = get_inference_time(model, test_dataset_path, num_tests=5, logger=logger, device=device)
 

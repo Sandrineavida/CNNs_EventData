@@ -6,9 +6,7 @@ from utils.device_info import get_cpu_info, get_gpu_info_nvidia_smi
 
 
 # [training]
-# num_classes=1
 # num_epochs=10
-# criteria=BCEWithLogitsLoss
 # optimizer=Adam
 # learning_rate=0.001
 # patience=7

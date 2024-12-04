@@ -15,9 +15,8 @@
 
 ```plaintext
 ├── `config/`
-│   └── `train/`
-│       ├── `train_config_c2.cfg`  # Configuration file for training on N-CARS dataset  
-│       └── `train_config_c10.cfg` # Configuration file for training on N-MNIST dataset
+│   └── `train/` 
+│       └── `train_config.cfg` # Configuration file for training
 │
 ├── `data/`
 │   └── `ncars/`

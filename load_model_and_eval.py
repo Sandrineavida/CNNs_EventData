@@ -1,6 +1,6 @@
 import torch
-from models.cnn_lenet_q import CNNLeNet_q
-from models.cnn_lenet import CNNLeNet
+from models.cnn_lenet_q import CNNLeNet_q, CNNwithSkip_q
+from models.cnn_lenet import CNNLeNet, CNNwithSkip
 from models.separable_convolution_q import SeparableConv_LeNet_q, MobileNet_q
 from models.separable_convolution import SeparableConv_LeNet, MobileNet
 from utils.log import Logger
@@ -10,7 +10,7 @@ import os
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 path_dir = "experiments/"
-exp = "exp032/"
+exp = "exp041/"
 train_log_path = path_dir + exp + "train_log.txt"
 
 logger = Logger(log_exp=exp, log_dir="experiments", log_file="reload_eval_log.txt")
@@ -83,6 +83,9 @@ if quantised:
         model = SeparableConv_LeNet_q(num_classes=num_classes, scale=scale, zero_point=zero_point)
     elif model_class == "MobileNet":
         model = MobileNet_q(num_classes=num_classes, scale=scale, zero_point=zero_point)
+    elif model_class == "CNNwithSkip":
+        model = CNNwithSkip_q(num_classes=num_classes, scale=scale, zero_point=zero_point)
+
 
     dict_path = path_dir + exp + "quantised_model.pth"
     model.load_state_dict(torch.load(dict_path))
@@ -97,6 +100,8 @@ else:
         model = SeparableConv_LeNet(num_classes=num_classes, quantised=False)
     elif model_class == "MobileNet":
         model = MobileNet(num_classes=num_classes, quantised=False)
+    elif model_class == "CNNwithSkip":
+        model = CNNwithSkip(num_classes=num_classes, quantised=False)
 
     dict_path = path_dir + exp + "model.pth"
     state_dict = torch.load(dict_path)
